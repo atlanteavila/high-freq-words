@@ -1,4 +1,4 @@
-const learnedWords = JSON.parse(localStorage.getItem('learned')) || [];
+export const learnedWords = JSON.parse(localStorage.getItem('learned')) || [];
 const setStorageItem = (key, val) => localStorage.setItem(key, JSON.stringify(val));
 
 export const setLearnedWord = (word) => {
@@ -12,7 +12,7 @@ export const setLearnedWord = (word) => {
 }
 
 export const deleteLearnedWord = (word) => {
-    let index = learnedWords.indexOf(word);
+    let index = itExists(word);
     if (index >= 0) {
         learnedWords.splice(index, 1);
         setStorageItem('learned', learnedWords)
@@ -20,4 +20,10 @@ export const deleteLearnedWord = (word) => {
     } else if (index < 0) {
         alert("word doesn't exist");
     }
+}
+
+export const filterKnownWords = (words) => words.filter((word) => console.log(":::word:::", word) || itExists(word) ? false : true)
+
+export const itExists = (word) => {
+    return learnedWords.indexOf(word) >= 0;
 }
